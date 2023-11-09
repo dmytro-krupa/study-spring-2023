@@ -17,7 +17,7 @@ public class FlightServiceImpl implements FlightService {
 
         final Flight flight = new Flight();
         flight.setDateTime(LocalDateTime.now());
-        flight.setNumberOfPlaces(6);
+//        flight.setNumberOfPlaces(6);
         ticketService.generateTicketsForFlight(flight);
     }
 }

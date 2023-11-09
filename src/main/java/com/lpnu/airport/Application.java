@@ -3,8 +3,6 @@ package com.lpnu.airport;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.time.LocalDateTime;
-
 @SpringBootApplication
 public class Application {
 
@@ -22,6 +20,6 @@ public class Application {
     di - dependency inversion
 
 
-
+командна робота
      */
 }

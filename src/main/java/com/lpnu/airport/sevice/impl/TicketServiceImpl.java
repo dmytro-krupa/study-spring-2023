@@ -5,19 +5,17 @@ import com.lpnu.airport.entity.Ticket;
 import com.lpnu.airport.entity.User;
 import com.lpnu.airport.exceptions.BadRequestException;
 import com.lpnu.airport.repository.TicketRepository;
-import com.lpnu.airport.repository.UserRepository;
+import com.lpnu.airport.repository.stream.UserRepositoryStream;
 import com.lpnu.airport.sevice.TicketService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
 
 @Service
 @RequiredArgsConstructor
 public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
-    private final UserRepository userRepository;
+    private final UserRepositoryStream userRepository;
 
     @Override
     public void buyTicket(Long ticketId, Long userId) {
@@ -46,17 +44,17 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void generateTicketsForFlight(Flight flight) {
-        for(int i = 0; i < flight.getNumberOfPlaces(); i++){
-            final Ticket ticket = new Ticket();
-
-            ticket.setFlight(flight);
-
-            //TODO: remove magic number. Should depends on plane model
-            ticket.setPlace(placeNameGenerator(i, 3));
-            ticket.setPrice(BigDecimal.valueOf(100));
-
-            ticketRepository.save(ticket);
-        }
+//        for(int i = 0; i < flight.getNumberOfPlaces(); i++){
+//            final Ticket ticket = new Ticket();
+//
+//            ticket.setFlight(flight);
+//
+//            //TODO: remove magic number. Should depends on plane model
+//            ticket.setPlace(placeNameGenerator(i, 3));
+//            ticket.setPrice(BigDecimal.valueOf(100));
+//
+//            ticketRepository.save(ticket);
+//        }
     }
 
     private Ticket findById(final Long ticketId){

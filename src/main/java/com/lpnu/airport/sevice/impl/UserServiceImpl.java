@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+//    private final UserRepositoryStream userRepository;
 
     @Override
     public UserDTO findDTOById(final Long id) {
@@ -73,6 +74,13 @@ public class UserServiceImpl implements UserService {
         User user = findById(userId);
 
         user.setMoney(user.getMoney().add(money));
-        userRepository.update(user);
+        userRepository.save(user);
+    }
+
+    @Override
+    public UserDTO searchByNameAndSurname(String name, String surname) {
+        return userRepository.findOneByNameAndSurname(name, surname)
+                .map(UserDTO::toDTO)
+                .orElseThrow(() -> new BadRequestException(String.format("User with name {%s} and surname {%s} not found", name, surname)));
     }
 }

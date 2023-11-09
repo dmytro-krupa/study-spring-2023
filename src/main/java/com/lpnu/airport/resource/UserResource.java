@@ -50,4 +50,10 @@ public class UserResource {
                          final @RequestParam BigDecimal money){
         userService.addMoney(id, money);
     }
+
+    @GetMapping("/{name}/{surname}")
+    public UserDTO find(final @PathVariable String name,final @PathVariable String surname){
+        return userService.searchByNameAndSurname(name, surname);
+    }
+
 }

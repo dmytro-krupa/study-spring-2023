@@ -14,4 +14,6 @@ public interface UserService {
     UserDTO update(UserDTO user);
 
     void addMoney(Long userId, BigDecimal money);
+
+    UserDTO searchByNameAndSurname(String name, String surname);
 }
