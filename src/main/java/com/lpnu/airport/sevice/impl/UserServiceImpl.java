@@ -1,34 +1,51 @@
 package com.lpnu.airport.sevice.impl;
 
+import com.lpnu.airport.dto.UserDTO;
 import com.lpnu.airport.entity.User;
 import com.lpnu.airport.exceptions.BadRequestException;
 import com.lpnu.airport.repository.UserRepository;
 import com.lpnu.airport.sevice.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public User findById(final Long id) {
+    public UserDTO findDTOById(final Long id) {
+        final User user = findById(id);
+
+        return UserDTO.toDTO(user);
+    }
+
+    private User findById(final Long id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException(String.format("User with id {%s} not found", id)));
     }
 
+
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public List<UserDTO> findAll() {
+        return userRepository.findAll().stream()
+                .map(UserDTO::toDTO)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public User save(final User user) {
-        return userRepository.save(user);
+    public UserDTO save(final UserDTO userDTO) {
+        final User user = new User();
+
+        user.setName(userDTO.getName());
+        user.setSurname(userDTO.getSurname());
+        userRepository.save(user);
+
+        return UserDTO.toDTO(user);
     }
 
     @Override
@@ -37,18 +54,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(User user) {
-        if(user.getId() == null){
+    public UserDTO update(UserDTO userDTO) {
+        if(userDTO.getId() == null){
             throw new BadRequestException("Id can't be null");
         }
 
-        return userRepository.update(user);
+        final User savedUser = findById(userDTO.getId());
+
+        savedUser.setName(userDTO.getName());
+        savedUser.setSurname(userDTO.getSurname());
+        userRepository.save(savedUser);
+
+        return UserDTO.toDTO(savedUser);
     }
 
     @Override
-    public User updateUserName(Long id, String name) {
-        User user = findById(id);
-        user.setName(name);
-        return user;
+    public void addMoney(Long userId, BigDecimal money) {
+        User user = findById(userId);
+
+        user.setMoney(user.getMoney().add(money));
+        userRepository.update(user);
     }
 }

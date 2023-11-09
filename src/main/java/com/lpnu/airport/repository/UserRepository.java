@@ -40,6 +40,7 @@ public class UserRepository {
 
         savedUser.setName(user.getName());
         savedUser.setSurname(user.getSurname());
+        savedUser.setMoney(user.getMoney());
 
         return savedUser;
     }

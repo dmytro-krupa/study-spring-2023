@@ -1,14 +1,17 @@
 package com.lpnu.airport.sevice;
 
-import com.lpnu.airport.entity.User;
+import com.lpnu.airport.dto.UserDTO;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+
 public interface UserService {
-    User findById(Long id);
+    UserDTO findDTOById(Long id);
     void deleteById(Long id);
-    List<User> findAll();
-    User save(User user);
-    User update(User user);
-    User updateUserName(Long id, String name);
+    List<UserDTO> findAll();
+    UserDTO save(UserDTO user);
+    UserDTO update(UserDTO user);
+
+    void addMoney(Long userId, BigDecimal money);
 }
