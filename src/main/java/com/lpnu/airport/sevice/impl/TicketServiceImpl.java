@@ -19,15 +19,15 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     public void buyTicket(Long ticketId, Long userId) {
-        //todo: make code better and safe
         User user = userRepository.findById(userId).get();
 
         Ticket ticket = findById(ticketId);
+
         user.setMoney(user.getMoney().subtract(ticket.getPrice()));
         userRepository.update(user);
 
         ticket.setUser(user);
-        ticketRepository.update(ticket);
+        ticketRepository.save(ticket);
     }
 
     @Override

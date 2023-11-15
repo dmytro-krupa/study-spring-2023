@@ -9,17 +9,4 @@ public class Application {
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
-
-
-    /*
-    ioc - Inversion of control
-    di - dependency injection
-
-
-
-    di - dependency inversion
-
-
-командна робота
-     */
 }

@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 @RequiredArgsConstructor
 public class FlightServiceImpl implements FlightService {
     private final TicketService ticketService;
+
     @Override
     public void generateTestFlight() {
 

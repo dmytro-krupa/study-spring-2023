@@ -2,6 +2,7 @@ package com.lpnu.airport.resource;
 
 import com.lpnu.airport.dto.UserDTO;
 import com.lpnu.airport.sevice.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,8 +32,8 @@ public class UserResource {
         PostMapping відповідає за створення ресурсів
      */
     @PostMapping
-    public UserDTO createUser(final @RequestBody UserDTO user){
-        return userService.save(user);
+    public UserDTO createUser(final @RequestBody @Valid UserDTO userDTO){
+        return userService.save(userDTO);
     }
 
     @PutMapping
@@ -51,8 +52,8 @@ public class UserResource {
         userService.addMoney(id, money);
     }
 
-    @GetMapping("/{name}/{surname}")
-    public UserDTO find(final @PathVariable String name,final @PathVariable String surname){
+    @GetMapping("/search")
+    public UserDTO find(final @RequestParam String name,final @RequestParam String surname){
         return userService.searchByNameAndSurname(name, surname);
     }
 

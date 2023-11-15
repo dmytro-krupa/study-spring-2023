@@ -15,10 +15,12 @@ import java.util.List;
 @Table(name = "flights")
 public class Flight {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private LocalDateTime dateTime;
+    @Column
+    private Boolean isActive = Boolean.TRUE;
 
     @OneToMany(mappedBy = "flight")
     private List<Ticket> tickets;

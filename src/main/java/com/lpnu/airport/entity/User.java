@@ -14,7 +14,7 @@ import java.util.List;
 public class User {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
     private String name;
@@ -22,6 +22,8 @@ public class User {
     private String surname;
     @Column
     private BigDecimal money = BigDecimal.ZERO;
+    @Column
+    private Boolean isActive = Boolean.TRUE;
 
     @OneToMany(mappedBy = "user")
     private List<Ticket> tickets;

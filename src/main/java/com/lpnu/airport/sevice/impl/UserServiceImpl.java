@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-//    private final UserRepositoryStream userRepository;
 
     @Override
     public UserDTO findDTOById(final Long id) {
@@ -33,7 +32,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserDTO> findAll() {
-        return userRepository.findAll().stream()
+        return userRepository.findAllByIsActiveTrue().stream()
                 .map(UserDTO::toDTO)
                 .collect(Collectors.toList());
     }
@@ -51,12 +50,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteById(Long id) {
-        userRepository.deleteById(id);
+        User user = findById(id);
+        user.setIsActive(Boolean.FALSE);
+        userRepository.save(user);
     }
 
     @Override
     public UserDTO update(UserDTO userDTO) {
-        if(userDTO.getId() == null){
+        if (userDTO.getId() == null) {
             throw new BadRequestException("Id can't be null");
         }
 

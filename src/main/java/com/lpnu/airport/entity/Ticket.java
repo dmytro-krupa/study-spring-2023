@@ -15,17 +15,39 @@ import java.math.BigDecimal;
 @Table(name = "tickets")
 public class Ticket {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column
+    private String place;
+
+    @Column
+    private BigDecimal price;
+
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-    @Column
-    private String place;
+
     @ManyToOne
     @JoinColumn(name = "flight_id")
     private Flight flight;
-    @Column
-    private BigDecimal price;
+
+
+
+
+//    public static void main(String[] args) {
+//        int x = 7;
+//        int row = 6;
+//        String chars = "ABCDEFGH";
+//
+//
+//        for(int i = 1; i <= x/row + 1; i++){
+//            for (int j = 0; j < row; j++){
+//                //row тут неправильне
+//                System.out.println("" + i + chars.charAt(j));
+//            }
+//        }
+//    }
 }
