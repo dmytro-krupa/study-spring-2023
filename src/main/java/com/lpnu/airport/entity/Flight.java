@@ -17,11 +17,15 @@ public class Flight {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime dateTime;
     @Column
     private Boolean isActive = Boolean.TRUE;
 
     @OneToMany(mappedBy = "flight")
     private List<Ticket> tickets;
+
+    @OneToOne
+    @JoinColumn(name = "plane_id")
+    private Plane plane;
 }
