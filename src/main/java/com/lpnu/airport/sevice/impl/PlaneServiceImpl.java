@@ -18,7 +18,15 @@ public class PlaneServiceImpl implements PlaneService {
 
     @Override
     public PlaneDTO create(PlaneDTO planeDTO) {
-        return null;
+        Plane plane = new Plane();
+        plane.setIsActive(true);
+        plane.setModel(planeDTO.getModel());
+        plane.setRowSeats(planeDTO.getRowSeats());
+        plane.setNumberOfSeats(planeDTO.getNumberOfSeats());
+
+        planeRepository.save(plane);
+
+        return PlaneDTO.toDTO(plane);
     }
 
     @Override
@@ -42,7 +50,8 @@ public class PlaneServiceImpl implements PlaneService {
         return PlaneDTO.toDTO(plane);
     }
 
-    private Plane findEntityById(final Long id){
+    @Override
+    public Plane findEntityById(final Long id){
         return planeRepository.findById(id)
                 .orElseThrow(() -> new BadRequestException(String.format("Plane with id {%s} not found", id)));
     }

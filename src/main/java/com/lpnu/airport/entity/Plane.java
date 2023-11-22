@@ -22,4 +22,7 @@ public class Plane {
     private int numberOfSeats;
     @Column
     private Boolean isActive = Boolean.TRUE;
+
+    @OneToOne(mappedBy = "plane")
+    private Flight flight;
 }
