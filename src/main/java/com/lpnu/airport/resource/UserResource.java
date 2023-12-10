@@ -1,9 +1,16 @@
 package com.lpnu.airport.resource;
 
 import com.lpnu.airport.dto.UserDTO;
+import com.lpnu.airport.sevice.RoleService;
 import com.lpnu.airport.sevice.UserService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -15,6 +22,11 @@ import java.util.List;
 public class UserResource {
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
+
+
     /*
         GetMapping відповідає за отримання ресурсів
      */
@@ -32,8 +44,9 @@ public class UserResource {
         PostMapping відповідає за створення ресурсів
      */
     @PostMapping
-    public UserDTO createUser(final @RequestBody @Valid UserDTO userDTO){
-        return userService.save(userDTO);
+    public ResponseEntity createUser(final @RequestBody @Valid UserDTO userDTO){
+        final UserDTO responseBody = userService.save(userDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(responseBody);
     }
 
     @PutMapping
@@ -53,8 +66,15 @@ public class UserResource {
     }
 
     @GetMapping("/search")
-    public UserDTO find(final @RequestParam String name,final @RequestParam String surname){
-        return userService.searchByNameAndSurname(name, surname);
+    public ResponseEntity<UserDTO> find(final @RequestParam String name, final @RequestParam String surname){
+        final UserDTO responseBody = userService.searchByNameAndSurname(name, surname);
+        return ResponseEntity.ok(responseBody);
     }
+
+    @GetMapping("/role")
+    public String getRole(){
+        return roleService.getRole();
+    }
+
 
 }

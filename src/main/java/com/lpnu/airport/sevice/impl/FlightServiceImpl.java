@@ -41,7 +41,7 @@ public class FlightServiceImpl implements FlightService {
         flightRepository.save(flight);
 
 
-        for(int i = 1; i < plane.getNumberOfSeats()/plane.getRowSeats(); i++){
+        for(int i = 1; i <= plane.getNumberOfSeats()/plane.getRowSeats(); i++){
             for(int j = 1 ; j <= plane.getRowSeats(); j++){
                 Ticket ticket = new Ticket();
 

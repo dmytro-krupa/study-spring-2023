@@ -1,14 +1,13 @@
 package com.lpnu.airport.resource;
 
+import com.lpnu.airport.dto.CreateFlightDTO;
 import com.lpnu.airport.sevice.FlightService;
-import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/flight")
@@ -16,9 +15,9 @@ import java.time.LocalDateTime;
 public class FlightResource {
     private final FlightService flightService;
 
-    @PostMapping("/{planeId}")
-    public void createFlight(final @PathVariable @Positive Long planeId,
-                             final @RequestParam @FutureOrPresent @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)  LocalDateTime date){
-        flightService.createFlight(planeId, date);
+    @PostMapping
+    public void createFlight(final @RequestBody @Valid CreateFlightDTO createFlightDTO){
+        createFlightDTO.validate();
+        flightService.createFlight(createFlightDTO.getPlaneId(), createFlightDTO.getDateTime());
     }
 }

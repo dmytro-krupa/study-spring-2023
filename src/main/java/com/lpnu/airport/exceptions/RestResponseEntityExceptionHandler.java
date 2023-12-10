@@ -12,7 +12,7 @@ import org.springframework.web.context.request.WebRequest;
 public class RestResponseEntityExceptionHandler {
     @ExceptionHandler(value = BadRequestException.class )
     public ResponseEntity<Object> handleServiceException(final BadRequestException ex, final WebRequest request) {
-        return ResponseEntity.status(HttpStatus.valueOf(HttpStatus.BAD_REQUEST.value()))
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(new ExceptionResponseDTO(ex.getMessage()));
     }
 

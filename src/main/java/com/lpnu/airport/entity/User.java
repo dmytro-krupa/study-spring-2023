@@ -1,5 +1,6 @@
 package com.lpnu.airport.entity;
 
+import com.lpnu.airport.entity.enumerated.Role;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,10 +22,19 @@ public class User {
     @Column
     private String surname;
     @Column
+    private String email;
+    @Column
+    private String password;
+    @Column
     private BigDecimal money = BigDecimal.ZERO;
     @Column
     private Boolean isActive = Boolean.TRUE;
 
     @OneToMany(mappedBy = "user")
     private List<Ticket> tickets;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 }

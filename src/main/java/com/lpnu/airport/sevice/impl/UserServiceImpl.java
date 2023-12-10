@@ -43,6 +43,7 @@ public class UserServiceImpl implements UserService {
 
         user.setName(userDTO.getName());
         user.setSurname(userDTO.getSurname());
+        user.setRoles("ADMIN");
         userRepository.save(user);
 
         return UserDTO.toDTO(user);

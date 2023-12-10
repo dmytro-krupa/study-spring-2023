@@ -4,9 +4,12 @@ import com.lpnu.airport.entity.Plane;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -21,6 +24,7 @@ public class PlaneDTO {
     @Positive
     private Integer numberOfSeats;
     private Boolean isActive;
+
 
 
     public static PlaneDTO toDTO(final Plane plane){

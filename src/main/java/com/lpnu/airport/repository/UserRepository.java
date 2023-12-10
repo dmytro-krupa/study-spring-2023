@@ -14,4 +14,5 @@ import java.util.stream.Collectors;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneByNameAndSurname(String name, String surname);
     List<User> findAllByIsActiveTrue();
+    Optional<User> findOneByEmail(String email);
 }
